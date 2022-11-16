@@ -1,7 +1,7 @@
-import './Menu.css'
+import './Menu.css';
 import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
-import AuthService from '../../services/AuthService';
+import AuthService from '../../services/AuthService'
 
 export default function Menu(props) {
 
@@ -13,28 +13,20 @@ export default function Menu(props) {
         }
     }, []);
 
-
     return (
-        <nav className='menu'>
-            <Link to="/alunos">
-                Alunos
-            </Link>
-            <Link to="/cursos">
-                Cursos
-            </Link>
-            <Link to="/carometro">
-                Carômetro
-            </Link>
+        <nav>
+            <a><Link to="/Showroom" className='logo'> LOGO </Link></a>
+            
+            <ul className='nav-list'>
+                <li><a><Link to="/showroom" className='pagina'>Showroom</Link></a></li>
+                <li><a><Link to="/cadastro" className='pagina'>Cadastro de Veiculos</Link></a></li>
 
-            {currentUser ? (
-                <Link to="/logout">
-                    Logout
-                </Link>
-            ) : (
-                <Link to="/login">
-                    Login
-                </Link>
-            )}
+                {currentUser ? (
+                    <li><a><Link to="logout" className='pagina' id='logout'>Logout</Link></a></li>
+                ) : (
+                    <li><a><Link to="login" className='pagina' id='login'>Login</Link></a></li>
+                )}
+            </ul>
         </nav>
     )
-}
+}   

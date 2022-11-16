@@ -23,7 +23,7 @@ export default function Rotas() {
             <Route exact path='/'
                 element={
                     <Main title="Bem Vindo!">
-                        <div>Cadastro de alunos, cursos e carômetro</div>
+                        <div>Projet</div>
                     </Main>}
             />
             {currentUser ? (
@@ -34,21 +34,6 @@ export default function Rotas() {
                 <Route exact path='/alunos'
                     element={
                         <Main title="Aluno">
-                            <div>Não autorizado!</div>
-                        </Main>
-                    }
-                />
-            )}
-            {currentUser ? (
-                <Route exact path='/cursos'
-                    element={
-                        <CrudCurso />
-                    }
-                />
-            ) : (
-                <Route exact path='/cursos'
-                    element={
-                        <Main title="Cursos">
                             <div>Não autorizado!</div>
                         </Main>
                     }

@@ -1,18 +1,39 @@
-nav.menu {
-    background-color: var(--bg-menu);
-    text-align: right;
-    padding-top: 15px;
-    padding: 10px;
-    }
-    .menu a{
-        text-decoration: none;
-        color: #000;
-        padding: 10px;
-        font-size: 30px;
-        padding: 10px;
-        margin-top: auto;
-    }
+a{
+    color: #fff;
+    text-decoration: none;
+    text-transform: uppercase;
+    font-weight: bold;
+}
 
-    .menu a:hover{
-        color: #538cc6;
-    }
+.logo{
+    font-size: 24px;
+    text-transform: uppercase;
+    letter-spacing: 4px;
+}
+
+nav{
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    background: black;
+    height: 8vh;
+
+}
+
+.nav-list{
+    list-style: none;
+    display: flex;
+}
+
+.nav-list li{
+    letter-spacing: 3px;
+    margin-left: 32px;
+}
+
+#login{
+    color: green;
+}
+
+#logout{
+    color: red;
+}
