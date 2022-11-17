@@ -16,10 +16,17 @@ export default function Menu(props) {
     return (
         <nav>
             <a><Link to="/Showroom" className='logo'> LOGO </Link></a>
-            
+
             <ul className='nav-list'>
                 <li><a><Link to="/showroom" className='pagina'>Showroom</Link></a></li>
-                <li><a><Link to="/cadastro" className='pagina'>Cadastro de Veiculos</Link></a></li>
+                <li>
+                    <a className='pagina'>Cadastro</a>
+                    <ul className='dropdown'>
+                        <li><a><Link to="/cadastroConcessionaria" className='pagina' id='paginaDrop'>Cadastro de Concessionarias</Link></a></li>
+                        <li><a><Link to="/cadastroVeiculos" className='pagina' id='paginaDrop'>Cadastro de Veiculos</Link></a></li>
+                    </ul>
+                </li>
+
 
                 {currentUser ? (
                     <li><a><Link to="logout" className='pagina' id='logout'>Logout</Link></a></li>

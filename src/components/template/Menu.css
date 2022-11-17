@@ -5,6 +5,37 @@ a{
     font-weight: bold;
 }
 
+ul{
+    list-style: none;
+    background-color: black;
+}
+
+ul li ul.dropdown li{
+    display: block;
+}
+
+ul li ul.dropdown{
+    padding: 15px;
+    width: 100%;
+    background: black;
+    position: absolute;
+    z-index: 999;
+    display: none;
+    
+}
+
+ul li:hover ul.dropdown{
+    display: block;
+}
+
+.pagina{
+    display: block;
+}
+
+#paginaDrop{
+    padding-top: 15px;
+}
+
 .logo{
     font-size: 24px;
     text-transform: uppercase;

@@ -1,9 +1,9 @@
 import React, { useEffect, useState } from 'react';
 import { Routes, Route } from "react-router-dom";
 import Main from './components/template/Main';
-import CrudAluno from './components/CrudAluno/CrudAluno';
-import CrudCurso from './components/CrudCurso/CrudCurso';
-import Carometro from './components/Carometro/Carometro';
+import Showroom from './components/Showroom/Showroom'
+import CrudConcessionaria from './components/CrudConcessionaria/CrudConcessionaria'
+import CrudVeiculos from './components/CrudVeiculos/CrudVeiculos'
 import AuthService from './services/AuthService';
 import Login from './components/Login/Login';
 import Logout from './components/Logout/Logout';
@@ -23,32 +23,41 @@ export default function Rotas() {
             <Route exact path='/'
                 element={
                     <Main title="Bem Vindo!">
-                        <div>Projet</div>
+                        <div>Projeto Final DS402 NOT - COTUCA
+                        <br></br>
+                        <br></br>
+                            Danny Souza - 20665 | Pedro Paulino - 20693
+                        </div>
                     </Main>}
             />
+            <Route exact path='/showroom'
+                element={<Showroom />}
+            />
             {currentUser ? (
-                <Route exact path='/alunos'
-                    element={<CrudAluno />}
+                <Route exact path='/cadastroConcessionaria'
+                    element={
+                        <CrudConcessionaria />
+                    }
                 />
             ) : (
-                <Route exact path='/alunos'
+                <Route exact path='/cadastroConcessionaria'
                     element={
-                        <Main title="Aluno">
+                        <Main title="Cadastro de Concessionarias">
                             <div>Não autorizado!</div>
                         </Main>
                     }
                 />
             )}
             {currentUser ? (
-                <Route exact path='/carometro'
+                <Route exact path='/cadastroVeiculos'
                     element={
-                        <Carometro />
+                        <CrudVeiculos />
                     }
                 />
             ) : (
-                <Route exact path='/carometro'
+                <Route exact path='/cadastroVeiculos'
                     element={
-                        <Main title="Carometro">
+                        <Main title="Cadastro de Veículos">
                             <div>Não autorizado!</div>
                         </Main>
                     }

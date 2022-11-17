@@ -115,7 +115,7 @@ export default class CrudAluno extends Component {
 
                     onChange={e => this.atualizaCampo(e)}
                 />
-                <label> Curso: </label>
+                <label> Curso: </label> 
                 <select
                     id="codCurso"
                     className="form-input"
