@@ -1,13 +1,20 @@
+import { BsTrash } from 'react-icons/bs';
+import { BiSave } from 'react-icons/bi';
+import { ImCancelCircle } from 'react-icons/im';
+import { MdModeEdit } from 'react-icons/md';
+
 import React, { useEffect, useState, Component } from 'react';
 import axios from 'axios';
 import Main from "../template/Main";
-import "./CrudVeiculos.css";
+import "../CrudVeiculos/CrudVeiculos.css";
 
 const title = "Cadastro de Veiculos";
 const urlAPI = "http://localhost:5212/api/veiculo";
+const urlConcessionaria = "http://localhost:5212/api/concessionaria"
 const initialState = {
     veiculo: { id: 0, chassi: 0, marca: '', modelo: '', ano: 0,cor:'', preco:0, codLoja:0},   
-    lista: []
+    lista: [],
+    listaLoja: []
 }
 
 export default class CrudVeiculos extends Component {
@@ -19,6 +26,11 @@ export default class CrudVeiculos extends Component {
             this.setState({ lista: resp.data })
             console.log(resp.data)
         })
+        axios(urlConcessionaria).then(resp => {
+            this.setState({ listaLoja: resp.data })
+            console.log(resp.data)
+        })
+
     }
 
     limpar() {
@@ -142,17 +154,18 @@ export default class CrudVeiculos extends Component {
                     onChange={e => this.atualizaCampo(e)}
                 />
                 <label> Codigo da Loja: </label>
-                <input
-                    type="number"
+                <select
                     id="codLoja"
                     placeholder="Código Loja"
                     className="form-input"
                     name="codLoja"
-
                     value={this.state.veiculo.codLoja}
-                    
                     onChange={e => this.atualizaCampo(e)}
-                />
+
+                    >
+                        <option value='0'> Selecione a Loja </option>
+                        {this.state.listaLoja.map(concessionaria => (<option key={concessionaria.codLoja} value={concessionaria.codLoja}> {concessionaria.codLoja} - {concessionaria.nomeLoja}</option>))}
+                    </select>
                 
                 <button className="btnSalvar"
                     onClick={e => this.salvar(e)} >
@@ -195,12 +208,12 @@ export default class CrudVeiculos extends Component {
                                     <td>{veiculo.codLoja}</td>
                                     <td>
                                         <button onClick={() => this.carregar(veiculo)} >
-                                            Altera
+                                            <MdModeEdit />
                                         </button>
                                     </td>
                                     <td>
                                         <button onClick={() => this.remover(veiculo)} >
-                                            Remove
+                                            <BsTrash />
                                         </button>
                                     </td>
                                 </tr>

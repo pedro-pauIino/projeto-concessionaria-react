@@ -2,6 +2,15 @@
     margin-left: 50px;
 }
 
+
+h2{
+    padding: 5px;
+}
+
+.listagem{
+    padding: 20px;
+}
+
 .listaAlunos {
     margin-left: 20px;
     font-family: Arial, Helvetica, sans-serif;
