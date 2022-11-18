@@ -43,11 +43,8 @@ export default class CrudConcessionaria extends Component {
         return lista;
     }
     atualizaCampo(event) {
-        //clonar usuário a partir do state, para não alterar o state diretamente
         const concessionaria = { ...this.state.concessionaria };
-        //usar o atributo NAME do input identificar o campo a ser atualizado
         concessionaria[event.target.name] = event.target.value;
-        //atualizar o state
         this.setState({ concessionaria });
     }
 

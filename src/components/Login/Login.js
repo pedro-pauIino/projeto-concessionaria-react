@@ -23,7 +23,7 @@ export default function Login() {
 
                         localStorage.getItem("user"));
                     navigate("/");
-                    window.location.reload(); // atualiza o localStorage
+                    window.location.reload();
                 },
                 (error) => {
                     const resMessage =

@@ -4,31 +4,31 @@ import Main from "../template/Main";
 import Cards from "../template/Card";
 import "./Showroom.css";
 
-export default function Showroom() {
+export default function Carometro() {
 
 
-    const title = "Showroom";
-    const [veiculo, setVeiculo] = useState([]);
-    const [concessionaria, setConcessionaria] = useState([]);
-    const [inputConcessionaria, setInputConcessionaria] = useState([]);
+    const title = "Showroom de veiculos";
+    const [concessionarias, setConcessionarias] = useState([]);         
+    const [veiculos, setVeiculos] = useState([]);                   
+    const [inputConcessionarias, setInputConcessionarias] = useState([]);
 
     const urlConcessionaria = "http://localhost:5212/api/concessionaria";
     const urlVeiculo = "http://localhost:5212/api/veiculo";
+    const urlImg = "https://picsum.photos/400/200?random";
 
     useEffect(() => {
         axios(urlVeiculo).then((reponse) => {
-            setVeiculo(
+            setVeiculos(
                 reponse.data.map((veiculo) => ({
                     id: veiculo.id,
+                    placa: veiculo.placa,
+                    marca: veiculo.marca,
                     modelo: veiculo.modelo,
-                    codLoja: veiculo.codLoja,
-                    marca:veiculo.marca,
-                    valor:veiculo.valor,
                     ano: veiculo.ano,
                     cor: veiculo.cor,
-                    km: veiculo.km,
-                    placa:veiculo.placa,
-                    preco: veiculo.preco
+                    preco: veiculo.preco,
+                    codloja: veiculo.codloja,
+
                 }))
             );
         });
@@ -36,28 +36,31 @@ export default function Showroom() {
 
     useEffect(() => {
         axios(urlConcessionaria).then((reponse) => {
-            setConcessionaria(
+            setConcessionarias(
                 reponse.data.map((concessionaria) => ({
                     id: concessionaria.id,
-                    codLoja:concessionaria.codLoja,
-                    nomeLoja:concessionaria.nomeLoja              
+                    codLoja: concessionaria.codLoja,
+                    nomeLoja: concessionaria.nomeLoja,
+                    cep: concessionaria.cep,
+                    endereco: concessionaria.endereco,
+                    estado: concessionaria.estado,
                 }))
             );
         });
     }, []);
 
     const atualizaConcessionaria = (codLoja) => {
-        const concessionaria = concessionaria.find((concessionaria) => String(concessionaria.codLoja) === codLoja);
+        const concessionaria = concessionarias.find((concessionaria) => String(concessionaria.codLoja) === codLoja);
 
-        setInputConcessionaria(concessionaria);
+        setInputConcessionarias(concessionaria);
     };
 
-    const selecionaVeiculo = (veiculo) => {
-        if (inputConcessionaria) {
-            return veiculo.filter((veiculo) => veiculo.codLoja === inputConcessionaria.codLoja);
+    const selecionaVeiculos = (veiculos) => {
+        if (inputConcessionarias) {
+            return veiculos.filter((veiculo) => veiculo.codLoja === inputConcessionarias.codLoja);
         }
 
-        return veiculo;
+        return veiculos;
     };
 
     return (
@@ -68,31 +71,33 @@ export default function Showroom() {
                         className="select"
                         onChange={(event) => atualizaConcessionaria(event.target.value)}
                         value={
-                            inputConcessionaria
-                                ? concessionaria.find(
-                                    (concessionaria) => concessionaria.nomeLoja === inputConcessionaria.nomeLoja
+                            inputConcessionarias
+                                ? concessionarias.find(
+                                    (concessionaria) => concessionaria.nomeLoja === inputConcessionarias.nomeLoja
                                 )?.codLoja : ""
                         }
                     >
                         <option value="">
                             Todos
                         </option>
-                        {concessionaria.map((concessionaria) => (
+                        {concessionarias.map((concessionaria) => (
                             <option value={concessionaria.codLoja} key={concessionaria.codLoja}>
-                                {concessionaria.codLoja} - {concessionaria.nomeLoja}
+                                {concessionaria.nomeLoja}
                             </option>
                         ))}
                     </select>
-                    <p></p> {/* Coloquei essa tag p para separar o card do botão de selecionar*/}
                 </div>
-                {selecionaVeiculo(veiculo).map((veiculo) => (
+                {selecionaVeiculos(veiculos).map((veiculo) => (
                     <Cards
+                        codLoja={veiculo.codLoja}
+                        placa={veiculo.placa}
                         marca={veiculo.marca}
                         modelo={veiculo.modelo}
                         ano={veiculo.ano}
-                        valor={veiculo.valor}
-                        key={concessionaria.id}
-                        img={`${veiculo.id}.jpg`}
+                        cor={veiculo.cor}
+                        km={veiculo.km}
+                        preco={veiculo.preco}
+                        img={`${urlImg}${veiculo.id}.jpg`}
                     />
                 ))}
             </div>

@@ -12,7 +12,7 @@ const title = "Cadastro de Veiculos";
 const urlAPI = "http://localhost:5212/api/veiculo";
 const urlConcessionaria = "http://localhost:5212/api/concessionaria"
 const initialState = {
-    veiculo: { id: 0, chassi: 0, marca: '', modelo: '', ano: 0,cor:'', preco:0, codLoja:0},   
+    veiculo: { id: 0, placa: '', marca: '', modelo: '', ano: 0,cor:'', km: 0, preco:0, codLoja:0},   
     lista: [],
     listaLoja: []
 }
@@ -38,7 +38,7 @@ export default class CrudVeiculos extends Component {
     }
     salvar() {
         const veiculo = this.state.veiculo;
-        veiculo.chassi = Number(veiculo.chassi);
+        veiculo.placa = String(veiculo.placa);
         const metodo = veiculo.id ? 'put' : 'post';
         const url = veiculo.id ? `${urlAPI}/${veiculo.id}` : urlAPI;
 
@@ -55,11 +55,8 @@ export default class CrudVeiculos extends Component {
         return lista;
     }
     atualizaCampo(event) {
-        //clonar usuário a partir do state, para não alterar o state diretamente
         const veiculo = { ...this.state.veiculo };
-        //usar o atributo NAME do input identificar o campo a ser atualizado
         veiculo[event.target.name] = event.target.value;
-        //atualizar o state
         this.setState({ veiculo });
     }
 
@@ -81,15 +78,15 @@ export default class CrudVeiculos extends Component {
     renderForm() {
         return (
             <div className="inclui-container">
-                <label> Chassi Veiculo: </label>
+                <label> Placa: </label>
                 <input
-                    type="number"
-                    id="chassi"
-                    placeholder="Chassi"
+                    type="text"
+                    id="placa"
+                    placeholder="Placa"
                     className="form-input"
-                    name="chassi"
+                    name="placa"
 
-                    value={this.state.veiculo.chassi}
+                    value={this.state.veiculo.placa}
 
                     onChange={e => this.atualizaCampo(e)}
                 />
@@ -141,6 +138,18 @@ export default class CrudVeiculos extends Component {
                     
                     onChange={e => this.atualizaCampo(e)}
                 />
+                <label> KM: </label>
+                <input
+                    type="number"
+                    id="km"
+                    placeholder="KM"
+                    className="form-input"
+                    name="km"
+
+                    value={this.state.veiculo.km}
+                    
+                    onChange={e => this.atualizaCampo(e)}
+                />
                 <label> Preço: </label>
                 <input
                     type="number"
@@ -185,13 +194,14 @@ export default class CrudVeiculos extends Component {
                 <table className="listaVeiculos" id="tblListaVeiculos">
                     <thead>
                         <tr className="cabecTabela">
-                            <th className="tabTituloChassiVeiculos">Chassi</th>
-                            <th className="tabTituloMarcaVeiculos">Marca</th>
-                            <th className="tabTituloModeloVeiculos">Modelo</th>
-                            <th className="tabTituloAnoVeiculos">Ano</th>
-                            <th className="tabTituloCorVeiculos">Cor</th>
-                            <th className="tabTituloPrecoVeiculos">Preço</th>
-                            <th className="tabTituloCodLojaVeiculos">Loja</th>
+                            <th className="tabTituloColunas">Placa</th>
+                            <th className="tabTituloColunas">Marca</th>
+                            <th className="tabTituloColunas">Modelo</th>
+                            <th className="tabTituloColunas">Ano</th>
+                            <th className="tabTituloColunas">Cor</th>
+                            <th className="tabTituloColunas">KM</th>
+                            <th className="tabTituloColunas">Preço</th>
+                            <th className="tabTituloColunas">Loja</th>
                         </tr>
                     </thead>
 
@@ -199,11 +209,12 @@ export default class CrudVeiculos extends Component {
                         {this.state.lista.map(
                             (veiculo) =>
                                 <tr key={veiculo.id}>
-                                    <td>{veiculo.chassi}</td>
+                                    <td>{veiculo.placa}</td>
                                     <td>{veiculo.marca}</td>
                                     <td>{veiculo.modelo}</td>
                                     <td>{veiculo.ano}</td>
                                     <td>{veiculo.cor}</td>
+                                    <td>{veiculo.km}</td>
                                     <td>{veiculo.preco}</td>
                                     <td>{veiculo.codLoja}</td>
                                     <td>
